@@ -1,14 +1,15 @@
 import streamlit as st
 import numpy as np
-import cv2
+import cv2 
+import sys
+import os
 from PIL import Image 
-from Proxy_Func import *
-from Begin_Func import *
-from Variational_Func import * 
-from Mix_Func import * 
-from Pnp_Algorithms import * 
-from Denoisers import * 
-
+from function.Proxy_Func import *
+from function.Begin_Func import *
+from function.Variational_Func import *
+from function.Mix_Func import *
+from function.Pnp_Algorithms import *
+from function.Denoisers import *
 # Imports de vos méthodes de débruitage
 # from your_denoising_module import pnp_denoising, tv_denoising
 
