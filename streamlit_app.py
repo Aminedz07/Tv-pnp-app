@@ -5,14 +5,14 @@ import sys
 import os
 from PIL import Image 
 from function.Proxy_Func import *
-from function.Begin_Func import *
+from function.Begin_Func import gradient, div, laplacian, norm, process_image_2
 from function.Variational_Func import *
 from function.Mix_Func import *
 from function.Pnp_Algorithms import *
 from function.Denoisers import *
 # Imports de vos méthodes de débruitage
 # from your_denoising_module import pnp_denoising, tv_denoising
-
+sys.path.append(os.path.join(os.path.dirname(__file__), 'function'))
 
 denoiser = DRUNet()
 
