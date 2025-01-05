@@ -69,7 +69,7 @@ if uploaded_file is not None:
         if st.button("Débruiter"):
             # Ajout du bruit à l'image
             
-            noisy_image=operateur(image).noise(sigma)
+            noisy_image=operateur(image).noise(noise_level)
             
     
             # Calcul du PSNR avant le débruitage
