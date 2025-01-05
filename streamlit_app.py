@@ -46,6 +46,7 @@ if uploaded_file is not None:
         image = Image.open(uploaded_file)
         image = np.array(image) 
         
+        
         # Affiche l'image téléchargée sur l'application
         st.image(image, caption="Image Téléchargée", use_column_width=True)
 
@@ -70,7 +71,7 @@ if uploaded_file is not None:
             # Ajout du bruit à l'image
             
             noisy_image=operateur(image).noise(noise_level)
-            
+            noisy_image = np.clip(noisy_image, 0, 255) / 255.0 
     
             # Calcul du PSNR avant le débruitage
             psnr_value = calculate_psnr(image, noisy_image)
@@ -82,6 +83,7 @@ if uploaded_file is not None:
             if method == "TV":
                 # Applique le débruitage Total Variation (TV)
                 denoised_image = fista(noisy_image, "none", None, 0.01, 0.05, 10, prox=prox_l6, prox_params={"tau": 0.1, "K": 15}, tol=1e-7)
+                denoised_image = np.clip(denoised_image, 0, 255) / 255.0  # Normalisation
                 st.image(denoised_image, caption="Image Débruitée par TV", use_column_width=True)
             
             else:
@@ -91,7 +93,7 @@ if uploaded_file is not None:
                     
                     # Applique le débruitage par PnP (Proximal and Non-Linear)
                     denoised_image, trajectoire = pnp_pgm(noisy_image , operator_type, operator_params_dict, tau, denoiser, sigma=noise_level, K=K)
-                    
+                    denoised_image = np.clip(denoised_image, 0, 255) / 255.0  # Normalisation
                     st.image(denoised_image, caption="Image Débruitée par PnP", use_column_width=True)
                 except json.JSONDecodeError as e:
                     st.error(f"Erreur de parsing JSON : {e}")
