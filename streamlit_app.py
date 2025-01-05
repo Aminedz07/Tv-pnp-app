@@ -90,7 +90,7 @@ if uploaded_file is not None:
                     operator_params_dict = json.loads(operator_params)
                     
                     # Applique le débruitage par PnP (Proximal and Non-Linear)
-                    denoised_image, trajectoire = pnp_pgm(noisy_image , operator_type, operator_params_dict, tau, denoiser, sigma=sigma, K=K)
+                    denoised_image, trajectoire = pnp_pgm(noisy_image , operator_type, operator_params_dict, tau, denoiser, sigma=noise_level, K=K)
                     
                     st.image(denoised_image, caption="Image Débruitée par PnP", use_column_width=True)
                 except json.JSONDecodeError as e:
