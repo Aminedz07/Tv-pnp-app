@@ -14,7 +14,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'function'))
 
 # Importation des fonctions nécessaires pour le débruitage
 from function.Proxy_Func import *
-from Begin_Func import load_img, save_path, operateur, numpy_to_tensor, tensor_to_numpy, PSNR, search_opt
+from function.Begin_Func import load_img, save_path, operateur, numpy_to_tensor, tensor_to_numpy, PSNR, search_opt
 from function.Variational_Func import *
 from function.Mix_Func import *
 from function.Pnp_Algorithms import *
@@ -44,7 +44,7 @@ if uploaded_file is not None:
     try:
         # Charge l'image en tant qu'objet PIL, puis la convertit en tableau numpy
         image = Image.open(uploaded_file)
-        
+        image = np.array(image) 
         
         # Affiche l'image téléchargée sur l'application
         st.image(image, caption="Image Téléchargée", use_column_width=True)
@@ -82,9 +82,8 @@ if uploaded_file is not None:
             if method == "TV":
                 # Applique le débruitage Total Variation (TV)
                 denoised_image = fista(noisy_image, "none", None, 0.01, 0.05, 10, prox=prox_l6, prox_params={"tau": 0.1, "K": 15}, tol=1e-7)
-                
-                
                 st.image(denoised_image, caption="Image Débruitée par TV", use_column_width=True)
+            
             else:
                 try:
                     # Conversion des paramètres JSON en dictionnaire
